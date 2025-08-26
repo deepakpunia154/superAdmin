@@ -6,8 +6,13 @@ const Token = require("../models/tokens");
 //  * @param {string} method - HTTP method ("GET" | "POST" | "PUT" | "DELETE")
 //  * @param {object} body - (optional) Payload/body for POST/PUT requests
 
-// async function callPanelApi(path, method = "GET", body = null) {
-//   const panels = await PanelConfig.find();
+
+
+// async function callPanelApi(path, method = "GET", body = {}, panelName = null) {
+//   const panels = panelName 
+//     ? await PanelConfig.find({ name: panelName }) 
+//     : await PanelConfig.find();
+
 //   let results = [];
 
 //   for (const panel of panels) {
@@ -23,28 +28,15 @@ const Token = require("../models/tokens");
 //         });
 //         continue;
 //       }
-
-//       // axios config
-//       const config = {
+//       const response = await axios({
 //         url: `${panel.baseUrl}${path}`,
-//         method: method,
+//         method,
 //         headers: {
 //           "Authorization": `Bearer ${token}`,
 //           "Content-Type": "application/json"
-//         }
-//       };
-
-//       // add body only for POST/PUT
-//       if (body && (method === "POST" || method === "PUT")) {
-//         config.data = body;
-//       }
-
-//       // add query params for GET agar body di ho
-//       if (body && method === "GET") {
-//         config.params = body;
-//       }
-
-//       const response = await axios(config);
+//         },
+//         data: body
+//       });
 
 //       results.push({
 //         panel: panel.name,
@@ -85,15 +77,25 @@ async function callPanelApi(path, method = "GET", body = {}, panelName = null) {
         });
         continue;
       }
-      const response = await axios({
+
+      // axios config
+      const config = {
         url: `${panel.baseUrl}${path}`,
         method,
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json"
-        },
-        data: body
-      });
+        }
+      };
+
+      // Agar GET hai to params use karo, warna body
+      if (method.toUpperCase() === "GET") {
+        config.params = body;  // query params
+      } else {
+        config.data = body;    // POST/PUT/PATCH ka body
+      }
+
+      const response = await axios(config);
 
       results.push({
         panel: panel.name,

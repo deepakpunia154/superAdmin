@@ -3,18 +3,16 @@ const { callPanelApi } = require("../../helper/common");
 
 module.exports = {
 
-
-     webGames: async (req, res) => {
+    gameRates: async (req, res) => {
         try {
-
             const result = await callPanelApi(
-                "/api/web/games",
+                "/mainGameRate",
                 "GET",
             );
 
             res.json({
                 status: true,
-                message: "Game list fetch successfully",
+                message: "Game rates fetch successfully",
                 data: result
             });
         } catch (error) {
@@ -23,68 +21,22 @@ module.exports = {
         }
     },
 
-    gameProvider: async (req, res) => {
+    addGameRates: async (req, res) => {
         try {
-
-            const result = await callPanelApi(
-                "/mainGames",
-                "GET",
-            );
-
-            res.json({
-                status: true,
-                message: "Game providers list fetch successfully",
-                data: result
-            });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ status: false, error: error.message });
-        }
-    },
-
-    updateGameProvider: async (req, res) => {
-        try {
-            const { activeStatus, gameId, gamename, result, panelName } = req.body
+            const { gamename, price, panelName } = req.body
             const data = await callPanelApi(
-                "/mainGames",
-                "PATCH",
-                {
-                    activeStatus,
-                    gameId,
-                    gamename,
-                    result
-                },
-                panelName
-            );
-
-            res.json({
-                status: true,
-                message: "Game providers update successfully",
-                data: data
-            });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ status: false, error: error.message });
-        }
-    },
-
-    addGameProvider: async (req, res) => {
-        try {
-            const { activeStatus, gamename, result, panelName } = req.body
-            const data = await callPanelApi(
-                "/mainGames/insertGame",
+                "/mainGameRate/insertGame",
                 "POST",
                 {
-                    activeStatus,
                     gamename,
-                    result
+                    price
                 },
                 panelName
             );
 
             res.json({
                 status: true,
-                message: "Game providers update successfully",
+                message: "Game rates add successfully",
                 data: data
             });
         } catch (error) {
@@ -93,26 +45,51 @@ module.exports = {
         }
     },
 
-    deleteGameProvider: async (req, res) => {
+    updateGameRates: async (req, res) => {
         try {
-            const { gameId, panelName } = req.body
+            const { gamename, price, gameRateId, panelName } = req.body
             const data = await callPanelApi(
-                "/mainGames",
-                "DELETE",
+                "/mainGameRate",
+                "PATCH",
                 {
-                    gameId
+                    gamename,
+                    price,
+                    userId: gameRateId //game rate id
                 },
                 panelName
             );
 
             res.json({
                 status: true,
-                message: "Game providers update successfully",
+                message: "Game rates update successfully",
                 data: data
             });
         } catch (error) {
             console.error(error);
             res.status(500).json({ status: false, error: error.message });
         }
-    }
+    },
+
+    deleteGameRates: async (req, res) => {
+        try {
+            const { gameRateId, panelName } = req.body
+            const data = await callPanelApi(
+                "/mainGameRate",
+                "DELETE",
+                {
+                    userId: gameRateId //game rate id
+                },
+                panelName
+            );
+
+            res.json({
+                status: true,
+                message: "Game rates update successfully",
+                data: data
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ status: false, error: error.message });
+        }
+    },
 }
