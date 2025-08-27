@@ -6,6 +6,12 @@ const userRouter = require("./userRoutes");
 const mainGameRouter = require("./mainGameRoutes/gameProviderRoutes");
 const mainGameSettingRouter = require("./mainGameRoutes/gameSettingRoutes");
 const mainGameRatesRouter = require("./mainGameRoutes/gameRates");
+const walletSearchAccountRouetr = require("./walletRoutes/searchAccountRoutes");
+const walletInvoicesRouter = require("./walletRoutes/invoicesRoutes");
+const viewWalletRouter = require("./walletRoutes/viewWalletRouter");
+const reqOnOffRouter = require("./walletRoutes/reqOnOffRoutes");
+const mainSalesReportRouter = require("./reportRoutes/salesReportRoutes");
+const deletedUserRouter = require("./deletedUser/deletedUserRoutes");
 
 let commonRouter = express.Router();
 
@@ -16,5 +22,12 @@ commonRouter.use("/user", userRouter);
 commonRouter.use("/mainGame", mainGameRouter);
 commonRouter.use("/mainGameSetting", mainGameSettingRouter);
 commonRouter.use("/mainGameRate", mainGameRatesRouter);
+
+commonRouter.use("/wallet", walletSearchAccountRouetr);
+commonRouter.use("/wallet/invoices", walletInvoicesRouter);
+commonRouter.use("/wallet/viewWallet", viewWalletRouter);
+commonRouter.use("/wallet/reqOnOff", reqOnOffRouter);
+commonRouter.use("/mainSalesReport", mainSalesReportRouter);
+commonRouter.use("/deletedUser", deletedUserRouter);
 
 module.exports = commonRouter;
