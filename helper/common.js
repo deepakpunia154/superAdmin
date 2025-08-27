@@ -96,10 +96,9 @@ async function callPanelApi(path, method = "GET", body = {}, panelName = null) {
       }
 
       const response = await axios(config);
-
       results.push({
         panel: panel.name,
-        success: true,
+        // success: true,
         data: response.data
       });
 
@@ -107,7 +106,7 @@ async function callPanelApi(path, method = "GET", body = {}, panelName = null) {
       results.push({
         panel: panel.name,
         success: false,
-        error: err.message
+        error: err.response.data.message
       });
     }
   }

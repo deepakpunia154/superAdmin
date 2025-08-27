@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const SECRET_KEY = process.env.JWT_SECRET
 console.log("SECRET_KEY", SECRET_KEY)
 const SuperAdminSchema = require("../models/superAdmin");
+const Token = require("../models/tokens");
 
 module.exports = {
 
@@ -43,7 +44,11 @@ module.exports = {
                     id: superAdmin._id,
                     username: superAdmin.username
                 },
-                panels: panelData
+                //    panels: panelData.map(p => ({
+                //     success: true,
+                //     panel: p.panel,
+                //     token: p.token
+                // }))
             });
 
         } catch (error) {
@@ -51,6 +56,45 @@ module.exports = {
             return res.status(500).json({ status: false, message: "Something went wrong", error: error.message });
         }
     },
+
+    getTokens: async (req, res) => {
+        try {
+            const tokens = await Token.find({}, "panelName token");
+            return res.json({
+                status: true,
+                message: "All panel tokens fetched successfully",
+                data: tokens,
+            });
+        } catch (error) {
+            return res.status(500).json({
+                status: false,
+                message: "Something went wrong",
+                error: error.message,
+            });
+        }
+    },
+
+    getAdminsDetails: async (req, res) => {
+        try {
+            const panelData = await loginToPanels();
+            return res.json({
+                status: true,
+                message: "All admin details fetched successfully",
+                panels: panelData.map(p => ({
+                    panel: p.panel,
+                    token: p.token,
+                    adminDetails: p.data.user
+                }))
+            });
+        } catch (error) {
+            return res.status(500).json({
+                status: false,
+                message: "Something went wrong",
+                error: error.message,
+            });
+        }
+    },
+
 
     blockUserFromAllPanels: async (req, res) => {
         const { userId } = req.body;

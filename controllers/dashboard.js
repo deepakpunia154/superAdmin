@@ -5,9 +5,10 @@ module.exports = {
   dashboardCount: async (req, res) => {
     const result = await callPanelApi("/dashboard/dashboardCount", "GET");
     res.json({
-      status: true,
-      message: "Dashboard count fetch successfully",
-      data: result
+      // status: true,
+      // message: "Dashboard count fetch successfully",
+      // data: result
+      result
     });
   },
 
