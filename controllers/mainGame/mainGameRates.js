@@ -5,9 +5,12 @@ module.exports = {
 
     gameRates: async (req, res) => {
         try {
+            const { panelName } = req.query
             const result = await callPanelApi(
                 "/mainGameRate",
                 "GET",
+                null,
+                panelName
             );
 
             res.json({

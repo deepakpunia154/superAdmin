@@ -4,10 +4,12 @@ module.exports = {
 
     gameSetting: async (req, res) => {
         try {
-
+            const { panelName } = req.query
             const result = await callPanelApi(
                 "/mainGameSetting",
                 "GET",
+                null,
+                panelName
             );
 
             res.json({

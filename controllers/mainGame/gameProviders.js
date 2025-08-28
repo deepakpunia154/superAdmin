@@ -4,12 +4,14 @@ const { callPanelApi } = require("../../helper/common");
 module.exports = {
 
 
-     webGames: async (req, res) => {
+    webGames: async (req, res) => {
         try {
-
+            const { panelName } = req.query
             const result = await callPanelApi(
                 "/api/web/games",
                 "GET",
+                null,
+                panelName
             );
 
             res.json({
@@ -25,10 +27,12 @@ module.exports = {
 
     gameProvider: async (req, res) => {
         try {
-
+            const { panelName } = req.query
             const result = await callPanelApi(
                 "/mainGames",
                 "GET",
+                null,
+                panelName
             );
 
             res.json({
@@ -84,7 +88,7 @@ module.exports = {
 
             res.json({
                 status: true,
-                message: "Game providers update successfully",
+                message: "Game providers add successfully",
                 data: data
             });
         } catch (error) {
@@ -107,7 +111,7 @@ module.exports = {
 
             res.json({
                 status: true,
-                message: "Game providers update successfully",
+                message: "Game providers delete successfully",
                 data: data
             });
         } catch (error) {

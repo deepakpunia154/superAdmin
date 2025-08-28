@@ -8,6 +8,7 @@ const mainGameSettingRouter = require("./mainGameRoutes/gameSettingRoutes");
 const mainGameRatesRouter = require("./mainGameRoutes/gameRates");
 const mainGameResultRouter = require("./mainGameRoutes/gameResult");
 const mainGameRevertResultRouter = require("./mainGameRoutes/revertResultPaymentRoutes");
+const mainGameRefundUserPointRouter = require("./mainGameRoutes/refundUserPointRoutes");
 const walletSearchAccountRouetr = require("./walletRoutes/searchAccountRoutes");
 const walletInvoicesRouter = require("./walletRoutes/invoicesRoutes");
 const viewWalletRouter = require("./walletRoutes/viewWalletRouter");
@@ -26,6 +27,7 @@ commonRouter.use("/mainGameSetting", mainGameSettingRouter);
 commonRouter.use("/mainGameRate", mainGameRatesRouter);
 commonRouter.use("/mainGameResult", mainGameResultRouter);
 commonRouter.use("/mainGameRevertPayment", mainGameRevertResultRouter);
+commonRouter.use("/mainGameRefund", mainGameRefundUserPointRouter);
 
 commonRouter.use("/wallet", walletSearchAccountRouetr);
 commonRouter.use("/wallet/invoices", walletInvoicesRouter);
