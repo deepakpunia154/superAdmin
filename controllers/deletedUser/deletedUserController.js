@@ -15,7 +15,7 @@ module.exports = {
             );
             res.json({
                 status: true,
-                message: "User report generated successfully",
+                message: "Deleted users fetched successfully.",
                 data: result
             });
         } catch (err) {
@@ -43,4 +43,25 @@ module.exports = {
             res.status(500).json({ error: "Something went wrong", err: err.message });
         }
     },
+
+    timeHistory: async (req, res) => {
+        try {
+            const { timeList, panelName } = req.body;
+            const result = await callPanelApi(
+                "/deleteduser/timeHistory",
+                "POST",
+                { timeList },
+                panelName
+            );
+            res.json({
+                status: true,
+                message: "Time history updated successfully",
+                data: result
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: "Something went wrong", err: err.message });
+        }
+    },
+
 }

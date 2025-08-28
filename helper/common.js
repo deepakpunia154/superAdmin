@@ -57,7 +57,65 @@ const Token = require("../models/tokens");
 // }
 
 
-async function callPanelApi(path, method = "GET", body = {}, panelName = null) {
+// async function callPanelApi(path, method = "GET", body = {}, panelName = null) {
+//   const panels = panelName 
+//     ? await PanelConfig.find({ name: panelName }) 
+//     : await PanelConfig.find();
+
+//   let results = [];
+
+//   for (const panel of panels) {
+//     try {
+//       const tokenDoc = await Token.findOne({ panelName: panel.name });
+//       const token = tokenDoc ? tokenDoc.token : null;
+
+//       if (!token) {
+//         results.push({
+//           panel: panel.name,
+//           success: false,
+//           error: "No token found for this panel"
+//         });
+//         continue;
+//       }
+
+//       // axios config
+//       const config = {
+//         url: `${panel.baseUrl}${path}`,
+//         method,
+//         headers: {
+//           "Authorization": `Bearer ${token}`,
+//           "Content-Type": "application/json"
+//         }
+//       };
+
+//       // Agar GET hai to params use karo, warna body
+//       if (method.toUpperCase() === "GET") {
+//         config.params = body;  // query params
+//       } else {
+//         config.data = body;    // POST/PUT/PATCH ka body
+//       }
+
+//       const response = await axios(config);
+//       results.push({
+//         panel: panel.name,
+//         // success: true,
+//         data: response.data
+//       });
+
+//     } catch (err) {
+//       results.push({
+//         panel: panel.name,
+//         success: false,
+//         error: err.response.data.message
+//       });
+//     }
+//   }
+
+//   return results;
+// }
+async function callPanelApi(path, method = "GET", body = {}, panelName = null, isFormData = null ) {
+        console.log("mahima common testing start",body)
+
   const panels = panelName 
     ? await PanelConfig.find({ name: panelName }) 
     : await PanelConfig.find();
@@ -83,22 +141,30 @@ async function callPanelApi(path, method = "GET", body = {}, panelName = null) {
         url: `${panel.baseUrl}${path}`,
         method,
         headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
+          "Authorization": `Bearer ${token}`
         }
       };
 
-      // Agar GET hai to params use karo, warna body
-      if (method.toUpperCase() === "GET") {
-        config.params = body;  // query params
+      // agar form-data bhejna hai
+      console.log("mahima common testing",body)
+      if (isFormData == true) {
+        config.data = body; 
+        config.headers["Content-Type"] = "multipart/form-data";
+        
       } else {
-        config.data = body;    // POST/PUT/PATCH ka body
+         if (method.toUpperCase() === "GET") {
+          config.params = body;
+        } else {
+          config.data = body;
+          config.headers["Content-Type"] = "application/json";
+        }
       }
+
+      
 
       const response = await axios(config);
       results.push({
         panel: panel.name,
-        // success: true,
         data: response.data
       });
 
@@ -106,7 +172,7 @@ async function callPanelApi(path, method = "GET", body = {}, panelName = null) {
       results.push({
         panel: panel.name,
         success: false,
-        error: err.response.data.message
+        error: err?.response?.data?.message || err.message
       });
     }
   }

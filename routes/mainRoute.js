@@ -13,7 +13,19 @@ const walletInvoicesRouter = require("./walletRoutes/invoicesRoutes");
 const viewWalletRouter = require("./walletRoutes/viewWalletRouter");
 const reqOnOffRouter = require("./walletRoutes/reqOnOffRoutes");
 const mainSalesReportRouter = require("./reportRoutes/salesReportRoutes");
-const deletedUserRouter = require("./deletedUser/deletedUserRoutes");
+const totalBidReportRouter = require("./reportRoutes/totalGameBidsRoutes");
+const creditDebitReportRouter = require("./reportRoutes/creditDebitReportRoutes");
+const dailyReportRouter = require("./reportRoutes/dailyReportRoutes");
+const biddingReportRouter = require("./reportRoutes/biddingReportRoutes");
+const userAnalysisRouter = require("./reportRoutes/userAnalysisRoutes");
+
+
+const deletedUserRouter = require("./deletedUserRoutes/deletedUserRoutes");
+const appSettingsRouter = require("./appSettingsRoutes/howToPlayRoutes");
+const withDrawRouter = require("./appSettingsRoutes/withdrawScreenRoutes");
+const noticeBoardRouter = require("./appSettingsRoutes/noticeBoardRoutes");
+const walletContectRouter = require("./appSettingsRoutes/walletContectRoutes");
+const versionSettingRouter = require("./appSettingsRoutes/appVersionRoutes");
 
 let commonRouter = express.Router();
 
@@ -32,6 +44,17 @@ commonRouter.use("/wallet/invoices", walletInvoicesRouter);
 commonRouter.use("/wallet/viewWallet", viewWalletRouter);
 commonRouter.use("/wallet/reqOnOff", reqOnOffRouter);
 commonRouter.use("/mainSalesReport", mainSalesReportRouter);
+commonRouter.use("/totalBidReport", totalBidReportRouter);
+commonRouter.use("/creditDebitReport", creditDebitReportRouter);
+commonRouter.use("/dailyReport", dailyReportRouter);
+commonRouter.use("/biddingReport", biddingReportRouter);
+commonRouter.use("/userAnalysis", userAnalysisRouter);
+
 commonRouter.use("/deletedUser", deletedUserRouter);
+commonRouter.use("/appSettings", appSettingsRouter);
+commonRouter.use("/withdraw", withDrawRouter);
+commonRouter.use("/noticeBoard", noticeBoardRouter);
+commonRouter.use("/walletContect",walletContectRouter);
+commonRouter.use("/versionSetting",versionSettingRouter);
 
 module.exports = commonRouter;

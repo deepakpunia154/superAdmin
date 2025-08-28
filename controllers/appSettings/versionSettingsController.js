@@ -1,19 +1,20 @@
+
+
 const { callPanelApi } = require("../../helper/common");
 
 module.exports = {
-    reqOn_Off: async (req, res) => {
+    versionSetting: async (req, res) => {
         try {
-           const {panelName} = req.query;
+            const { panelName } = req.query;
             const result = await callPanelApi(
-                "/reqOn_Off",
+                "/versionSetting",
                 "GET",
                 null,
                 panelName
             );
-
             res.json({
                 status: true,
-                message: "Get request on off data successfully",
+                message: "Version settings retrieved successfully",
                 data: result
             });
         } catch (err) {
@@ -22,39 +23,18 @@ module.exports = {
         }
     },
 
-    withdrawReqOnOff: async (req, res) => {
+    getCallFeatureStatus: async (req, res) => {
         try {
-            const { endDate, maxdeposit, maxwithdrawamount, minimumaddamount, minwithdraw, requestCount, startDate, panelName } = req.body;
+            const { id, panelName } = req.query;
             const result = await callPanelApi(
-                "/reqOn_Off/withdrawReqOnOff",
-                "POST",
-                { endDate, maxdeposit, maxwithdrawamount, minimumaddamount, minwithdraw, requestCount, startDate, },
-                panelName
-            );
-            res.json({
-                status: true,
-                message: "Update withdraw request successfully",
-                data: result
-            });
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: "Something went wrong", err: err.message });
-        }
-    },
-
-    getWithdrawReqOnOff: async (req, res) => {
-        try {
-              const {panelName} = req.query;
-            const result = await callPanelApi(
-                "/reqOn_Off/getWithdrawReqOnOff",
+                "/nnData/get-call-feature-status/:id",
                 "GET",
-                null,
+                { id },
                 panelName
             );
-
             res.json({
                 status: true,
-                message: "Get reqest on off list successfully",
+                message: "Call feature retrieved successfully",
                 data: result
             });
         } catch (err) {
@@ -63,18 +43,25 @@ module.exports = {
         }
     },
 
-    updateReq: async (req, res) => {
+    updateAppSet: async (req, res) => {
         try {
-            const { reason, rowId, status, panelName } = req.body;
+            console.log("req.body:", req.body);
+            console.log("req.file:", req.file);
+
+            const { type, id, appVer, panelName } = req.body;
+            const apk = req.file;
+
             const result = await callPanelApi(
-                "/reqOn_Off/updateReq",
+                "/versionSetting/updateAppSet",
                 "POST",
-                { reason, rowId, status },
-                panelName
+                { type, id, appVer, apk },
+                panelName,
+                true
             );
+
             res.json({
                 status: true,
-                message: "Update request successfully",
+                message: "App settings updated successfully",
                 data: result
             });
         } catch (err) {
@@ -82,5 +69,26 @@ module.exports = {
             res.status(500).json({ error: "Something went wrong", err: err.message });
         }
     },
+
+    updateAppOtpFlags: async (req, res) => {
+        try {
+            const { forgetOtp, id, loginOtp, mpinOtp, panelName } = req.body;
+            const result = await callPanelApi(
+                "/versionSetting/updateAppOtpFlags",
+                "POST",
+                { forgetOtp, id, loginOtp, mpinOtp },
+                panelName
+            );
+            res.json({
+                status: true,
+                message: "OTP flags updated successfully",
+                data: result
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: "Something went wrong", err: err.message });
+        }
+    },
+
 
 }

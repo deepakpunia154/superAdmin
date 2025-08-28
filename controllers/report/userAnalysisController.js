@@ -1,20 +1,18 @@
 const { callPanelApi } = require("../../helper/common");
 
 module.exports = {
-    getAllAccount: async (req, res) => {
+    analysisReport: async (req, res) => {
         try {
-            const { acc_num, panelName } = req.body;
-
+            const { userName, limit = 25, page = 1, panelName } = req.query;
             const result = await callPanelApi(
-                "/searchAccount/getDetails",
-                "POST",
-                { acc_num },
+                "/userAnalysis/analysisReport",
+                "GET",
+                {userName,limit,page},
                 panelName
             );
-
             res.json({
                 status: true,
-                message: "Search Account successfully",
+                message: "User analysis generated successfully",
                 data: result
             });
         } catch (err) {
