@@ -1,20 +1,18 @@
 const { callPanelApi } = require("../../helper/common");
-
 module.exports = {
-    getAllAccount: async (req, res) => {
-        try {
-            const { acc_num, panelName } = req.body;
 
+    biddingDay: async (req, res) => {
+        try {
+            const { date, gameType, limit, page, provider, session, userName, panelName } = req.body;
             const result = await callPanelApi(
-                "/searchAccount/getDetails",
+                "/biddingReport/biddingDay",
                 "POST",
-                { acc_num },
+                { date, gameType, limit, page, provider, session, userName },
                 panelName
             );
-
             res.json({
                 status: true,
-                message: "Search Account successfully",
+                message: "Bidding days retrieved successfully.",
                 data: result
             });
         } catch (err) {
@@ -22,4 +20,6 @@ module.exports = {
             res.status(500).json({ error: "Something went wrong", err: err.message });
         }
     },
+
+
 }
