@@ -27,9 +27,9 @@ module.exports = {
         try {
             const { id, panelName } = req.query;
             const result = await callPanelApi(
-                "/nnData/get-call-feature-status/:id",
+                `/nnData/get-call-feature-status/${id}`,
                 "GET",
-                { id },
+                null,
                 panelName
             );
             res.json({
