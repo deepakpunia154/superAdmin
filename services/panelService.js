@@ -1,6 +1,5 @@
 const fetch = require("node-fetch");
 const Token = require("../models/tokens");
-// const panelConfig = require("../configs/panelConfig");
 const {getAllPanels} = require("../configs/panelConfig");
 
 async function loginToPanels() {

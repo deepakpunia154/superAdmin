@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const panelConfigSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  projectName: { type: String, required: true },
   baseUrl: { type: String, required: true },
   username: { type: String, required: true },
   password: { type: String, required: true }

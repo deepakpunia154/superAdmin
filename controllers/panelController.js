@@ -3,11 +3,11 @@ const PanelConfig = require("../models/PanelConfig");
 module.exports = {
     addPanel: async (req, res) => {
         try {
-            const { name, loginUrl, username, password } = req.body;
+            const { name, loginUrl, username, password,projectName } = req.body;
 
             const panel = await PanelConfig.findOneAndUpdate(
                 { name },
-                { $set: { name, loginUrl, username, password } },
+                { $set: { name, loginUrl, username, password,projectName } },
                 { upsert: true, new: true }
             );
 
