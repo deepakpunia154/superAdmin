@@ -19,14 +19,16 @@ const creditDebitReportRouter = require("./reportRoutes/creditDebitReportRoutes"
 const dailyReportRouter = require("./reportRoutes/dailyReportRoutes");
 const biddingReportRouter = require("./reportRoutes/biddingReportRoutes");
 const userAnalysisRouter = require("./reportRoutes/userAnalysisRoutes");
-
-
+const userBidsRouter = require("./reportRoutes/userWiseBidRoutes");
 const deletedUserRouter = require("./deletedUserRoutes/deletedUserRoutes");
 const appSettingsRouter = require("./appSettingsRoutes/howToPlayRoutes");
 const withDrawRouter = require("./appSettingsRoutes/withdrawScreenRoutes");
 const noticeBoardRouter = require("./appSettingsRoutes/noticeBoardRoutes");
 const walletContectRouter = require("./appSettingsRoutes/walletContectRoutes");
 const versionSettingRouter = require("./appSettingsRoutes/appVersionRoutes");
+const mastersRouter = require("./mastersRoutes/manageEmployeeRoutes");
+const mastersAddRouter = require("./mastersRoutes/registerUserEmpRoutes");
+const notificationRouter = require("./notificationRoutes/notificationRoutes");
 
 let commonRouter = express.Router();
 
@@ -51,12 +53,17 @@ commonRouter.use("/creditDebitReport", creditDebitReportRouter);
 commonRouter.use("/dailyReport", dailyReportRouter);
 commonRouter.use("/biddingReport", biddingReportRouter);
 commonRouter.use("/userAnalysis", userAnalysisRouter);
-
+commonRouter.use("/userBids", userBidsRouter);
 commonRouter.use("/deletedUser", deletedUserRouter);
 commonRouter.use("/appSettings", appSettingsRouter);
 commonRouter.use("/withdraw", withDrawRouter);
 commonRouter.use("/noticeBoard", noticeBoardRouter);
 commonRouter.use("/walletContect",walletContectRouter);
 commonRouter.use("/versionSetting",versionSettingRouter);
+commonRouter.use("/master",mastersRouter);
+commonRouter.use("/mastersAdd",mastersAddRouter);
+commonRouter.use("/notification",notificationRouter);
+ 
+
 
 module.exports = commonRouter;
