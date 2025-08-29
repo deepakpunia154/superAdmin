@@ -49,7 +49,7 @@ module.exports = {
             const result = await callPanelApi(
                 `/notification/${id}`,
                 "DELETE",
-                null,
+                undefined,
                 panelName
             );
             res.json({
