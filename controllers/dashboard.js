@@ -3,7 +3,8 @@ const { callPanelApi } = require("../helper/common");
 module.exports = {
 
   dashboardCount: async (req, res) => {
-    const result = await callPanelApi("/dashboard/dashboardCount", "GET");
+    const { panelName } = req.query;
+    const result = await callPanelApi("/dashboard/dashboardCount", "GET", null, panelName);
     res.json({
       // status: true,
       // message: "Dashboard count fetch successfully",
@@ -13,7 +14,8 @@ module.exports = {
   },
 
   getBriefDeposit: async (req, res) => {
-    const result = await callPanelApi("/fundReport/getBriefDeposit", "POST");
+    const { panelName } = req.query;
+    const result = await callPanelApi("/fundReport/getBriefDeposit", "POST", null, panelName);
 
     res.json({
       status: true,
@@ -23,7 +25,7 @@ module.exports = {
   },
 
   userReportAll: async (req, res) => {
-    const { gameId, panelName } = req.body;
+    const { gameId, panelName } = req.query;
     const result = await callPanelApi("/salesReport/userReportAll", "POST", {
       gameId
     },
@@ -38,7 +40,8 @@ module.exports = {
   },
 
   checkUpdateCount: async (req, res) => {
-    const result = await callPanelApi("/allUser/checkUpdateCount", "GET",
+    const { panelName } = req.query;
+    const result = await callPanelApi("/allUser/checkUpdateCount", "GET", null, panelName
     );
 
     res.json({
@@ -49,7 +52,8 @@ module.exports = {
   },
 
   getUserRegisterCount: async (req, res) => {
-    const result = await callPanelApi("/dashboard/getUserRegisterCount", "GET");
+    const { panelName } = req.query;
+    const result = await callPanelApi("/dashboard/getUserRegisterCount", "GET", null, panelName);
     res.json({
       status: true,
       message: "User report fetch successfully",
