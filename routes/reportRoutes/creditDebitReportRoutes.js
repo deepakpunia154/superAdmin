@@ -3,6 +3,6 @@ const router = express.Router();
 const {creditDebitReport,report } = require("../../controllers/report/creditDebitReportController");
 
 router.get("/", creditDebitReport);
-router.get("/report", report);
+router.post("/report", report);
 
 module.exports = router;
