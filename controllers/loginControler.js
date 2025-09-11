@@ -104,5 +104,45 @@ module.exports = {
 
         const results = await blockUser(userId);
         return res.json({ status: true, results });
+    },
+
+    updateSuperAdminPassword : async (req, res) => {
+        try {
+            const { username, oldPassword, newPassword } = req.body;
+
+            const superAdmin = await SuperAdminSchema.findOne({ username });
+            if (!superAdmin) {
+                return res.status(404).json({
+                    status: false,
+                    message: "Super Admin not found"
+                });
+            }
+
+            const isMatch = await bcrypt.compare(oldPassword, superAdmin.password);
+            if (!isMatch) {
+                return res.status(401).json({
+                    status: false,
+                    message: "Old password is incorrect"
+                });
+            }
+
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+            superAdmin.password = hashedPassword;
+            await superAdmin.save();
+
+            return res.json({
+                status: true,
+                message: "Password updated successfully"
+            });
+
+        } catch (error) {
+            return res.status(500).json({
+                status: false,
+                message: "Something went wrong",
+                error: error.message
+            });
+        }
     }
 }
