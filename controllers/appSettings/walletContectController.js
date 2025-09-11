@@ -20,6 +20,7 @@ module.exports = {
             res.status(500).json({ error: "Something went wrong", err: err.message });
         }
     },
+
     getHeadLine: async (req, res) => {
         try {
             const { panelName } = req.query;
@@ -39,6 +40,7 @@ module.exports = {
             res.status(500).json({ error: "Something went wrong", err: err.message });
         }
     },
+
     getUpi: async (req, res) => {
         try {
             const { panelName } = req.query;
@@ -58,9 +60,6 @@ module.exports = {
             res.status(500).json({ error: "Something went wrong", err: err.message });
         }
     },
-
-
-
 
     updatewalletContact: async (req, res) => {
         try {
@@ -86,8 +85,6 @@ module.exports = {
             res.status(500).json({ error: "Something went wrong", err: err.message });
         }
     },
-
-
 
     updateHeadline: async (req, res) => {
         try {

@@ -2,7 +2,6 @@ const { loginToPanels, blockUser } = require("../services/panelService");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const SECRET_KEY = process.env.JWT_SECRET
-console.log("SECRET_KEY", SECRET_KEY)
 const SuperAdminSchema = require("../models/superAdmin");
 const Token = require("../models/tokens");
 
@@ -31,7 +30,7 @@ module.exports = {
             const token = jwt.sign(
                 { id: superAdmin._id, username: superAdmin.username },
                 SECRET_KEY,
-                { expiresIn: "1d" }
+                // { expiresIn: "1d" }
             );
 
             const panelData = await loginToPanels();

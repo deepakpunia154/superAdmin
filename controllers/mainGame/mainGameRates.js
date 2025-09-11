@@ -57,7 +57,8 @@ module.exports = {
                 {
                     gamename,
                     price,
-                    userId: gameRateId //game rate id
+                    userId: gameRateId //game rate
+                    //  id
                 },
                 panelName
             );

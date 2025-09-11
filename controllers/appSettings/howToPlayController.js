@@ -22,8 +22,7 @@ module.exports = {
             res.status(500).json({ error: "Something went wrong" });
         }
     },
-    
-    // upsert
+
     updateHtp: async (req, res) => {
         try {
             const { panelName, howtoplay } = req.body;
@@ -41,7 +40,7 @@ module.exports = {
             });
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: "Something went wrong",err:err.message });
+            res.status(500).json({ error: "Something went wrong", err: err.message });
         }
     },
 

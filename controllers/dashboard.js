@@ -15,7 +15,7 @@ module.exports = {
 
   getBriefDeposit: async (req, res) => {
     const { panelName } = req.query;
-    const result = await callPanelApi("/fundReport/getBriefDeposit", "POST", null, panelName);
+    const result = await callPanelApi("/fundReport/getBriefDeposit", "POST", undefined, panelName);
 
     res.json({
       status: true,

@@ -5,8 +5,8 @@ const Token = require("../models/tokens");
 async function callPanelApi(path, method = "GET", body = {}, panelName = null, isFormData = null) {
 
   const panels = panelName
-    ? await PanelConfig.find({ name: panelName })
-    : await PanelConfig.find();
+    ? await PanelConfig.find({ name: panelName ,active: true })
+    : await PanelConfig.find({ active: true });
 
   let results = [];
 

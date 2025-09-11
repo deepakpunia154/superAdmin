@@ -47,6 +47,29 @@ module.exports = {
         }
     },
 
+    // getUserProfileById: async (req, res) => {
+    //     try {
+    //         const { id, panelName } = req.query;
+
+    //         const result = await callPanelApi(
+    //             "/allUser/getProfile",
+    //             "GET",
+    //             { id },
+    //             panelName
+    //         );
+
+    //         res.json({
+    //             status: true,
+    //             message: "User profile fetch successfully",
+    //             data: result
+    //         });
+    //     } catch (error) {
+    //         console.error(error);
+    //         res.status(500).json({ status: false, error: error.message });
+    //     }
+    // },
+
+
     getUserProfileById: async (req, res) => {
         try {
             const { id, panelName } = req.query;
@@ -58,11 +81,28 @@ module.exports = {
                 panelName
             );
 
-            res.json({
+            // check karo sabhi panels fail hai kya
+            const allFailed = result.every(r => r?.success === false || r?.data?.status === false);
+
+            if (allFailed) {
+                const errorMsg =
+                    result[0]?.error ||
+                    result[0]?.data?.message ||
+                    "Profile not found for the given user.";
+                return res.json({
+                    status: false,
+                    message: errorMsg,
+                    data: result
+                });
+            }
+
+            // agar kam se kam ek success hai
+            return res.json({
                 status: true,
                 message: "User profile fetch successfully",
                 data: result
             });
+
         } catch (error) {
             console.error(error);
             res.status(500).json({ status: false, error: error.message });

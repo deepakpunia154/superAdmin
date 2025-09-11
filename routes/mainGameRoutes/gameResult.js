@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { mainGameResult, pastResult, mainWinnerList,mainGameResultDelete,confirmPayment } = require("../../controllers/mainGame/mainGameResult");
+const { mainGameResult, getMainGameResult, pastResult, mainWinnerList,mainGameResultDelete,confirmPayment } = require("../../controllers/mainGame/mainGameResult");
 
 router.post("/", mainGameResult);
+router.get("/", getMainGameResult);
 router.get("/pastResult", pastResult);
-router.get("/mainWinnerList", mainWinnerList);
+router.post("/mainWinnerList", mainWinnerList);
 router.delete("/", mainGameResultDelete);
 router.post("/confirmPayment", confirmPayment);
 

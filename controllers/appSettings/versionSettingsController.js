@@ -45,8 +45,6 @@ module.exports = {
 
     updateAppSet: async (req, res) => {
         try {
-            console.log("req.body:", req.body);
-            console.log("req.file:", req.file);
 
             const { type, id, appVer, panelName } = req.body;
             const apk = req.file;
@@ -89,6 +87,4 @@ module.exports = {
             res.status(500).json({ error: "Something went wrong", err: err.message });
         }
     },
-
-
 }
