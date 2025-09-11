@@ -29,6 +29,8 @@ const versionSettingRouter = require("./appSettingsRoutes/appVersionRoutes");
 const mastersRouter = require("./mastersRoutes/manageEmployeeRoutes");
 const mastersAddRouter = require("./mastersRoutes/registerUserEmpRoutes");
 const notificationRouter = require("./notificationRoutes/notificationRoutes");
+const payoutListRouter = require("./gatewayRequestsRoutes/payoutListRoutes");
+const payinListRouter = require("./gatewayRequestsRoutes/payinListRoutes");
 
 let commonRouter = express.Router();
 
@@ -63,6 +65,8 @@ commonRouter.use("/versionSetting",versionSettingRouter);
 commonRouter.use("/master",mastersRouter);
 commonRouter.use("/mastersAdd",mastersAddRouter);
 commonRouter.use("/notification",notificationRouter);
+commonRouter.use("/payout",payoutListRouter);
+commonRouter.use("/payin",payinListRouter);
  
 
 
