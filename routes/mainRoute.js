@@ -31,6 +31,7 @@ const mastersAddRouter = require("./mastersRoutes/registerUserEmpRoutes");
 const notificationRouter = require("./notificationRoutes/notificationRoutes");
 const payoutListRouter = require("./gatewayRequestsRoutes/payoutListRoutes");
 const payinListRouter = require("./gatewayRequestsRoutes/payinListRoutes");
+const manageGatewaysRouter = require("./gatewayRequestsRoutes/manageGatewayRoutes");
 
 let commonRouter = express.Router();
 
@@ -67,7 +68,8 @@ commonRouter.use("/mastersAdd",mastersAddRouter);
 commonRouter.use("/notification",notificationRouter);
 commonRouter.use("/payout",payoutListRouter);
 commonRouter.use("/payin",payinListRouter);
- 
+ commonRouter.use("/manageGateways",manageGatewaysRouter);
+
 
 
 module.exports = commonRouter;
